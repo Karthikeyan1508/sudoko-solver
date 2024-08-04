@@ -105,13 +105,6 @@ input {
 
 }
 
-button {
-    font-family: 'Inter';
-    font-size: 20px;
-    width: auto;
-    border-radius: 5px;
-    padding: 10px 20px;
-}
 
 .info {
     text-align: center;
@@ -127,7 +120,7 @@ button {
 }
 
 .solution {
-    color: rgb(99, 194, 140);
+    color: #63c28c;
     font-weight: 80;
 }
 
@@ -144,15 +137,42 @@ footer {
     padding: 10px 0;
 }
 
+button {
+    font-family: 'Inter';
+    font-size: 20px;
+    width: auto;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+button:hover {
+    background-color: #aaaaaa; 
+    color: #000000; 
+}
+
 #load_btn,
 #solve_btn {
     background-color: #cccccc;
     color: #111111;
 }
 
+#load_btn:hover,
+#solve_btn:hover {
+    background-color: #63c28c; 
+}
+
 #reset_btn,
 #clear_btn {
-    background-color: #111111;
-    border: 0.5px solid white;
+    background-color:#333333;
     color: #cccccc;
+}
+
+#reset_btn:hover,
+#clear_btn:hover {
+    background-color: #282727; 
+    color: #ffffff;
+    
 }
