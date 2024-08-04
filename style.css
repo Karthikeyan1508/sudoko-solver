@@ -38,7 +38,7 @@ h2 {
     margin-top: 0;
     align-content: center;
     background-color: #1e1e1e54;
-    border-bottom: solid 1px white;
+    border-bottom: solid 1px #63c28c;
     width: 100%;
 }
 
@@ -139,7 +139,7 @@ footer {
 
 button {
     font-family: 'Inter';
-    font-size: 20px;
+    font-size: 18px;
     width: auto;
     border: none;
     border-radius: 5px;
@@ -166,8 +166,13 @@ button:hover {
 
 #reset_btn,
 #clear_btn {
-    background-color:#333333;
+    background-color: #111111;
     color: #cccccc;
+    border: solid 0.25px;
+    border-style: inset;
+    border-color: white;
+    
+    
 }
 
 #reset_btn:hover,
@@ -175,4 +180,8 @@ button:hover {
     background-color: #282727; 
     color: #ffffff;
     
+}
+
+#myName{
+    color: #63c28c;
 }
