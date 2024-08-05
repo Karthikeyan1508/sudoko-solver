@@ -150,10 +150,8 @@ var sample_grids = [
   sample_grid_5,
   sample_grid_6,
   sample_grid_7,
-  sample_grid_8
+  sample_grid_8,
 ];
-
-
 
 var steps = 0;
 
@@ -173,7 +171,6 @@ function onClickSolve() {
   steps = 0;
   table_to_grid();
 
- 
   var count = 0;
   for (var i = 0; i < 9; i++) {
     for (var j = 0; j < 9; j++) {
@@ -181,7 +178,11 @@ function onClickSolve() {
     }
   }
 
-  if (count < 17) return;
+  if (count < 17) {
+    document.getElementById("info").textContent =
+      "Minimum 17 elements are required in the initial grid.";
+    return;
+  }
 
   copy_grid(grid, clue_grid);
 
@@ -189,10 +190,12 @@ function onClickSolve() {
 
   copy_grid(clue_grid, solution_grid);
   var t0 = performance.now();
-  solve();
+  if (!solve()) {
+    document.getElementById("info").textContent =
+      "No solution found. Check the question properly!";
+    return;
+  }
   var t1 = performance.now();
-
-    //console.log(t1 - t0 + " ms");
 
   document.getElementById("info").innerHTML =
     "Solved in " +
@@ -240,8 +243,19 @@ function grid_to_string(grid) {
 function grid_to_table(grid) {
   var table = document.getElementById("table");
 
+  if (!table) {
+    console.error("Table element not found.");
+    return;
+  }
+
+  while (table.rows.length > 0) {
+    table.deleteRow(0);
+  }
+
   for (var i = 0; i < 9; i++) {
+    var row = table.insertRow();
     for (var j = 0; j < 9; j++) {
+      var cell = row.insertCell();
       var textBox = document.createElement("input");
       textBox.type = "text";
       textBox.id = "cell_" + j + "_" + i;
@@ -253,14 +267,18 @@ function grid_to_table(grid) {
       } else {
         textBox.className = "solution";
       }
-      table.rows[i].cells[j].innerHTML = null;
-      table.rows[i].cells[j].appendChild(textBox);
+      cell.appendChild(textBox);
     }
   }
 }
 
 function table_to_grid() {
   var table = document.getElementById("table");
+
+  if (!table) {
+    console.error("Table element not found.");
+    return;
+  }
 
   for (var i = 0; i < 9; i++) {
     for (var j = 0; j < 9; j++) {
@@ -301,15 +319,18 @@ function solve() {
         for (var n = 1; n <= 9; n++) {
           if (possible(y, x, n)) {
             grid[y][x] = n;
-            solve();
+            if (solve()) {
+              return true;
+            }
             grid[y][x] = 0;
           }
         }
-        return;
+        return false;
       }
     }
   }
   copy_grid(grid, solution_grid);
+  return true;
 }
 
 document.getElementById("reset_btn").addEventListener("click", onClickReset);
